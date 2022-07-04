@@ -1,7 +1,8 @@
 # Use the official maven/Java 8 image to create a build artifact.
 # https://hub.docker.com/_/maven
 #FROM maven:3.5-jdk-8-alpine as builder
-FROM jdk-11.0.9_11-alpine as builder
+#FROM jdk-11.0.9_11-alpine as builder
+FROM FROM maven:3.8.6-jdk-11 as builder
 
 USER root
 RUN curl -L https://github.com/signalfx/splunk-otel-java/releases/latest/download/splunk-otel-javaagent.jar -o splunk-otel-javaagent.jar
