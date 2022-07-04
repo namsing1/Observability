@@ -31,4 +31,4 @@ FROM adoptopenjdk/openjdk11:jdk-11.0.9_11-alpine
 COPY --from=builder /app/target/hello-world-*.jar /hello-world.jar
 
 # Run the web service on container startup.
-CMD ["java","-javaagent:./splunk-otel-javaagent.jar","-Djava.security.egd=file:/dev/./urandom","-Dserver.port=8080","-jar","/hello-world.jar"]
+CMD ["java","-javaagent:splunk-otel-javaagent.jar","-Djava.security.egd=file:/dev/./urandom","-Dserver.port=8080","-jar","/hello-world.jar"]
