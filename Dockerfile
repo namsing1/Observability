@@ -27,7 +27,7 @@ FROM adoptopenjdk/openjdk11:jdk-11.0.9_11-alpine
 
 ENV OTEL_SERVICE_NAME hello-world
 ENV OTEL_RESOURCE_ATTRIBUTES deployment.environment=dev
-ENV OTEL_EXPORTER_OTLP_ENDPOINT https://ingest.app.eu0.signalfx.com/v2/trace
+ENV OTEL_EXPORTER_OTLP_ENDPOINT https://ingest.app.eu0.signalfx.com
 
 # Copy the jar to the production image from the builder stage.
 COPY --from=builder /app/target/hello-world-*.jar /hello-world.jar
