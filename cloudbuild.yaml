@@ -1,0 +1,30 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/hello-world:latest', '-t', 'gcr.io/$PROJECT_ID/hello-world:$COMMIT_SHA', '-t', 'gcr.io/$PROJECT_ID/hello-world:$BUILD_ID', '.']
+  id: 'build-image-hello-world'
+  waitFor: ['-']  # The '-' indicates that this step begins immediately.
+#  timeout: 500s
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/hello-world:$COMMIT_SHA']
+  id: 'push-image-to-container-registry'
+  waitFor: ['build-image-hello-world']
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - 'run'
+  - 'deploy'
+  - 'hello-world'
+  - '--image'
+  - 'gcr.io/$PROJECT_ID/hello-world:$COMMIT_SHA'
+  - '--region'
+  - 'europe-west1'
+  - '--platform'
+  - 'managed'
+  - '--allow-unauthenticated'
+  waitFor: ['push-image-to-container-registry']
+  id: 'deploy-to-cloud-run'  
+#options:
+#   machineType: 'N1_HIGHCPU_8'
+#timeout: 660s
+#tags: ['mytag1', 'mytag2']
+#images: ['gcr.io/my-project/myimage']
+
