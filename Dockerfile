@@ -9,7 +9,7 @@ FROM maven:3.8.6-jdk-11 as builder
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
-COPY splunk-otel-javaagent.jar .
+RUN curl -L https://github.com/signalfx/splunk-otel-java/releases/latest/download/splunk-otel-javaagent.jar -o splunk-otel-javaagent.jar
 #COPY settings.xml .
 
 # Build a release artifact.
