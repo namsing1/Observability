@@ -21,8 +21,9 @@ RUN mvn package -DskipTests
 #FROM adoptopenjdk/openjdk8:jdk8u202-b08-alpine-slim
 FROM adoptopenjdk/openjdk11:jdk-11.0.9_11-alpine
 
-USER root
-RUN curl -L https://github.com/signalfx/splunk-otel-java/releases/latest/download/splunk-otel-javaagent.jar -o splunk-otel-javaagent.jar
+#USER root
+#RUN curl -L https://github.com/signalfx/splunk-otel-java/releases/latest/download/splunk-otel-javaagent.jar -o splunk-otel-javaagent.jar
+COPY splunk-otel-javaagent.jar .
 ENV OTEL_SERVICE_NAME hello-world
 ENV OTEL_RESOURCE_ATTRIBUTES deployment.environment=dev
 ENV OTEL_EXPORTER_OTLP_ENDPOINT https://ingest.app.eu0.signalfx.com/v2/trace
