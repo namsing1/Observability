@@ -31,6 +31,7 @@ ENV OTEL_EXPORTER_OTLP_ENDPOINT https://ingest.app.eu0.signalfx.com/v2/trace
 
 # Copy the jar to the production image from the builder stage.
 COPY --from=builder /app/target/hello-world-*.jar /hello-world.jar
+COPY --from=builder /app/splunk-otel-javaagent.jar /splunk-otel-javaagent.jar
 
 # Run the web service on container startup.
-CMD ["java","-javaagent:/app/splunk-otel-javaagent.jar","-Djava.security.egd=file:/dev/./urandom","-Dserver.port=8080","-jar","/hello-world.jar"]
+CMD ["java","-javaagent:/splunk-otel-javaagent.jar","-Djava.security.egd=file:/dev/./urandom","-Dserver.port=8080","-jar","/hello-world.jar"]
